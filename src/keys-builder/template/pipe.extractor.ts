@@ -1,6 +1,8 @@
 import { AST, ASTWithSource, TmplAstNode } from '@angular/compiler';
+import { messages } from '../../messages';
 
 import { ExtractorConfig } from '../../types';
+import { getLogger } from '../../utils/logger';
 import { addKey } from '../add-key';
 import { resolveAliasAndKey } from '../utils/resolvers.utils';
 
@@ -19,6 +21,14 @@ import {
 
 export function pipeExtractor(config: TemplateExtractorConfig) {
   const ast = parseTemplate(config);
+  if (ast.errors) {
+    const logger = getLogger();
+    logger.log(
+      '\x1b[31m%s\x1b[0m',
+      '⚠️',
+      messages.unableToParseTemplate(config.file)
+    );
+  }
   traverse(ast.nodes, config);
 }
 

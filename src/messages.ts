@@ -24,4 +24,5 @@ export const messages = {
     `The following keys won't be accessible when unflatting the object:\n ${keys
       .map((k) => `"${k}"`)
       .join(', ')}`,
+  unableToParseTemplate: (name: string) => `Unable to parse template at "${name}"!`,
 };
